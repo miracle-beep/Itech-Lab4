@@ -23,11 +23,11 @@
     }
     return $reversedArray;
 }
-	function removeByValue($array, $value){
-		$temp = array_filter($testarray, function($val) {
-		return $val != $value;
-})
-		
+	function removeByValue($array, int $elementval){
+		$temp = array_filter($array, function($val) {
+		return $val != $elementval;
+});
+		return $temp;
 	}
 	$testarray = [3,5,10,20,13];
 	$array1 = generateRandomArray();
@@ -53,13 +53,17 @@
 	} 	else{
 		echo "К-ть повторюваних елементів " . $count . "<br><br>";
 		foreach($tmparray as $rep_em){
-		echo "Масив 1 (без повторень): " . implode(', ', removeByValue($array1, $rep_em)) . "<br>";
-		echo "Масив 2 (без повторень): " . implode(', ', removeByValue($array2, $rep_em)) . "<br>";
+			$array1 = removeByValue($array1, $rep_em);
+			$array2 = removeByValue($array2, $rep_em);
 		}
+			echo "Масив 1 без повторень (не працює :( ): " . implode(', ', $array1) . "<br>";
+			echo "Масив 2 без повторень (не працює :( ): " . implode(', ', $array2) . "<br>";
 	}
 	echo "Масив до развороту: " . implode(', ', $testarray) . "<br>";
 	echo "Масив після развороту: " . implode(', ', customReverseArray($testarray)) . "<br>";
-	echo "Масив після видалення конкретного числа: " . implode(', ', removeByValue($testarray, 13)) . "<br>";
+	echo "Масив після видалення конкретного числа: " . implode(', ', array_filter($testarray, function($val) {
+		return $val != 13;
+})) . "<br>";
     ?>
 </body>
 
